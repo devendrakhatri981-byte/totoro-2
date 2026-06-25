@@ -163,7 +163,7 @@ export default function ShowcaseSection() {
         <div
           ref={progressRef}
           className="h-full w-full bg-gradient-to-r from-[#4a7c6f] to-[#7fb3a8] origin-left"
-          style={{ scaleX: 0 }}
+          style={{ transform: "scaleX(0)" }}
         />
       </div>
 

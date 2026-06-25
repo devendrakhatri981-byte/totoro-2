@@ -149,8 +149,8 @@ export class RainAudioGenerator {
 
   stop() {
     this.isPlaying = false;
-    clearTimeout(this.dropTimeoutId);
-    clearTimeout(this.windTimeoutId);
+    if (this.dropTimeoutId) clearTimeout(this.dropTimeoutId);
+    if (this.windTimeoutId) clearTimeout(this.windTimeoutId);
 
     if (this.masterGain && this.ctx) {
       const t = this.ctx.currentTime;
@@ -158,18 +158,18 @@ export class RainAudioGenerator {
         // Smooth fade-out before stopping to avoid speaker clicks
         this.masterGain.gain.setValueAtTime(this.masterGain.gain.value, t);
         this.masterGain.gain.linearRampToValueAtTime(0, t + 0.6);
-      } catch (_) {}
+      } catch {}
 
       setTimeout(() => {
         if (this.backgroundSource) {
           try {
             this.backgroundSource.stop();
-          } catch (_) {}
+          } catch {}
         }
         if (this.ctx) {
           try {
             this.ctx.close();
-          } catch (_) {}
+          } catch {}
         }
         this.ctx = null;
         this.backgroundSource = null;
