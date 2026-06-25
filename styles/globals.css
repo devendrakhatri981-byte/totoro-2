@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Ripple animation ─────────────────────────────────────────── */
+@keyframes ripple {
+  0%   { transform: scale(1);  opacity: 0.4; }
+  100% { transform: scale(28); opacity: 0; }
+}
+.animate-ripple {
+  animation: ripple 0.65s ease-out forwards;
+}
+
+/* ── Focus ring global override ──────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #7fb3a8;
+  outline-offset: 3px;
+}
+
+/* ── Reduced Motion — disable all GSAP / CSS animations ─────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #e8e0d4;
+  --color-primary: #e8e0d4;
+  --color-accent: #4a7c6f;
+  --color-rain: #b8d4e8;
+  --color-glow: #7fb3a8;
+  
+  --duration-fast: 0.3s;
+  --duration-medium: 0.8s;
+  --duration-cinematic: 1.5s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  font-family: var(--font-body), sans-serif;
+  width: 100%;
+}
+
+/* Hide default cursor on devices that support hover */
+@media (hover: hover) and (pointer: fine) {
+  a, button, [role="button"], input, select, textarea, .magnetic-target {
+    cursor: none !important;
+  }
+  body, html {
+    cursor: none !important;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* Lenis Smooth Scroll Setup */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Selection Color */
+::selection {
+  background-color: var(--color-accent);
+  color: var(--background);
+}
+
+/* Glassmorphism utility */
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Custom cursor blend and transition styles */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: difference;
+  will-change: transform, width, height, background-color;
+  border-radius: 50%;
+}
+
+.cursor-glow {
+  box-shadow: 0 0 15px var(--color-glow);
+}
+
+/* Utility classes for animations */
+.char-span {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+.word-span {
+  display: inline-block;
+  white-space: nowrap;
+}
